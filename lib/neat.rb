@@ -3,7 +3,9 @@ require "neat/generator"
 module Neat
   if defined?(Rails) && defined?(Rails::Engine)
     class Engine < ::Rails::Engine
-      config.assets.paths << File.expand_path("../core", __dir__)
+      initializer "neat.paths", group: :all do |app|
+        app.config.assets.paths << File.expand_path("../core", __dir__)
+      end
     end
   else
     begin
